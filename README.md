@@ -1,1 +1,3 @@
-# DataStructures_-_Algorihtms
+## DataStructures and Algorihtms
+
+# Informatik 2

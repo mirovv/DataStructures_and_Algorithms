@@ -23,7 +23,7 @@ int main(){
     printf("this is a char %c\n", d);
 
     float e = 10 / 3.0;
-    printf("Result %f", e);
+    printf("Result %f\n", e);
 
     // Logical operators
 
@@ -37,7 +37,21 @@ int main(){
 
     // Arrays
 
-    
+    int arr[10];
+    arr[0] = 3;
+    arr[1] = 4;
+
+    printf("%d\n", arr[9]);
 
     return 0;
+}
+
+// Length of integer Array
+
+int length(int arr[], int size){
+    int result = 0;
+    for (int i = 0; i < size; i++){
+        result += arr[i];
+    }
+    return result;
 }

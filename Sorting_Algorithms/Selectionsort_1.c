@@ -12,7 +12,7 @@ void printArray(int arr[], int size){
     printf("\n");
 }
 
-void insertionSort(int arr[], int n){
+void selectionSort(int arr[], int n){
 
     for (int i = 0; i < n-1; i++){
         int smallest = i;
@@ -36,7 +36,7 @@ int main(){
     printf("Unsorted Array:\n");
     printArray(A, n);
 
-    insertionSort(A, n);
+    selectionSort(A, n);
 
     printf("Sorted Array:\n");
     printArray(A, n);

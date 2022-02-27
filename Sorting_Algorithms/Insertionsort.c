@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-// biggest element moved to the right
+// sort from left to right
 
 // print array
 void printArray(int arr[], int size){
@@ -12,19 +12,17 @@ void printArray(int arr[], int size){
     printf("\n");
 }
 
-void selectionSort(int arr[], int n){
+void insertionSort(int arr[], int n){
 
-    for (int i = 0; i < n-1; i++){
-        int biggest = n-i-1;
+    for (int i = 1; i < n; i++){
+        int j = i-1;
+        int t = arr[i]; // copy of the element to be sorted
         printArray(arr, n);
-        for (int j = n-i-1; j > -1; j--){
-            if (arr[j] > arr[biggest]){
-                biggest = j;
-            }
+        while (j >= 0 && t <= arr[j]){
+            arr[j+1] = arr[j];
+            j -= 1;
         }
-        int temp = arr[biggest];
-        arr[biggest] = arr[n-i-1];
-        arr[n-i-1] = temp;
+        arr[j+1] = t;
     }
 }
 
@@ -36,7 +34,7 @@ int main(){
     printf("Unsorted Array:\n");
     printArray(A, n);
 
-    selectionSort(A, n);
+    insertionSort(A, n);
 
     printf("Sorted Array:\n");
     printArray(A, n);

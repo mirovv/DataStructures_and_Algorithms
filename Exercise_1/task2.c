@@ -2,7 +2,7 @@
  * University of Zurich, Informatics II, Spring Semester 2022               *
  * Exercise 1 - Task 2                                                      *
  *                                                                          *
- * @author <Miro>                                                      *
+ * @author <Miro>                                                           *
  ****************************************************************************/
 
 #include <stdio.h>

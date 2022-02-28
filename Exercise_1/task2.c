@@ -10,12 +10,16 @@
 // hard-coded maximum length for input strings
 const int MAX_LENGTH = 1000;
 
+int count_vowels(char A[]);
+
 void BS(char A[]) {
 	char b_string[3000];
 	char vowels[] = {'A','a','E','e','I','i','O','o','U','u'};
 	int size = 0;
 	int i = 0;
 	int j;
+
+	size = size + count_vowels(A);
 
 
 	while (A[i] != '\0'){
@@ -25,7 +29,7 @@ void BS(char A[]) {
 
 	int count = 0;
 
-	for (i = 0; i < size*3; i++){
+	for (i = 0; i < size; i++){
 		b_string[i] = A[i];
 		printf("%c", A[i]);
 		for (j = 0; j < 10; j++){

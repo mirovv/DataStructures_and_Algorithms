@@ -7,14 +7,55 @@
 
 #include <stdio.h>
 
-void selectionSort(int A[], int n) {
+void printArray(int arr[], int size){
+    int i;
 
+    for (i = 0; i < size; i++){
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+void selectionSort(int A[], int n) {
+	int i, j = 0;
+	int k, t;
+
+	for (i = 0; i < n-1; i++){
+		k = i;
+		for (j = i; j < n; j++){
+			if (A[j] < A[k]){
+				k = j;
+			}
+		}
+		t = A[k];
+		A[k] = A[i];
+		A[i] = t;
+	}
+	printArray(A, n);
 	return;
 }
 
 void evenOddSelectionSort(int A[], int n){
+	int E[100];
+	int O[100];
+	int size = n;
+	int counter_e = 0;
+	int counter_o = 0;
 
-	
+	for (int i = 0; i < size; i++){
+		if (A[i] % 2 == 0){
+			E[counter_e] = A[i];
+			counter_e++;
+		}else{
+			O[counter_o] = A[i];
+			counter_o++;
+		}
+	}
+	int size_e = sizeof(E) / sizeof(int);
+	int size_o = sizeof(O) / sizeof(int);
+	selectionSort(E, size_e);
+	selectionSort(O, size_o);
+
 	return;
 }
 
@@ -30,8 +71,8 @@ int main(int argc, const char * argv[]) {
 
 	scanf("%*s");
 	
-	//printf("Result: ");
-	//evenOddSelectionSort(A, n);
+	printf("Result: \n");
+	evenOddSelectionSort(A, n);
 }
 
 // Linux, Mac: gcc task4.c -o task4; ./task4

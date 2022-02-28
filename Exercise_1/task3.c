@@ -53,7 +53,10 @@ void evenOddSelectionSort(int A[], int n){
 	}
 	int size_e = sizeof(E) / sizeof(int);
 	int size_o = sizeof(O) / sizeof(int);
+
+	printf("Sorted even numbers: ");
 	selectionSort(E, size_e);
+	printf("Sorted odd numbers: ");
 	selectionSort(O, size_o);
 
 	return;
@@ -74,5 +77,3 @@ int main(int argc, const char * argv[]) {
 	printf("Result: \n");
 	evenOddSelectionSort(A, n);
 }
-
-// Linux, Mac: gcc task4.c -o task4; ./task4

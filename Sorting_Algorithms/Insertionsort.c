@@ -18,7 +18,7 @@ void insertionSort(int arr[], int n){
         int j = i-1;
         int t = arr[i]; // copy of the element to be sorted
         printArray(arr, n);
-        while (j >= 0 && t <= arr[j]){
+        while (j >= 0 && t < arr[j]){
             arr[j+1] = arr[j];
             j -= 1;
         }

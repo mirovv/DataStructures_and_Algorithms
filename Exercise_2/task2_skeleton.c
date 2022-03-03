@@ -10,7 +10,18 @@
 // hard-coded maximum length for input strings
 const int MAX_LENGTH = 1000;
 
-// TODO: your implementation
+void recursiveSecondSmallest(int arr[], int n){
+	int smallest, secondSmallest = 0;
+
+	if (n == 0){
+		return secondSmallest;
+	}
+
+	if (arr[n-1] > arr[n-2]){
+		smallest = arr[n-2];
+		secondSmallest = arr[n-1];
+	}
+}
 
 int main() {
 	printf("Values of array separated by spaces (non-number to stop): ");
@@ -21,7 +32,10 @@ int main() {
 	}
 	// variable pos will contain number of integers read in from user
 
-	// TODO: your implementation
+
+	printf("The second smallest number is: ");
+	recursiveSecondSmallest(arr, pos);
+
 
 	return 0;
 }

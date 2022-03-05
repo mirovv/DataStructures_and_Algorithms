@@ -10,16 +10,21 @@
 // hard-coded maximum length for input strings
 const int MAX_LENGTH = 1000;
 
-void recursiveSecondSmallest(int arr[], int n){
-	int smallest, secondSmallest = 0;
-
-	if (n == 0){
-		return secondSmallest;
-	}
-
-	if (arr[n-1] > arr[n-2]){
-		smallest = arr[n-2];
-		secondSmallest = arr[n-1];
+void recursiveSecondSmallest(int arr[], int n, int smallest, int second, int counter){
+	int temp;
+	if (counter == n){
+		printf("%d", second);
+		return;
+	}else{
+		if (arr[counter] < smallest){
+			temp = smallest;
+			smallest = arr[counter];
+			second = temp;
+		}else if (arr[counter] > smallest && arr[counter] < second){
+			second = arr[counter];
+		}
+		counter++;
+		recursiveSecondSmallest(arr, n, smallest, second, counter);
 	}
 }
 
@@ -32,9 +37,18 @@ int main() {
 	}
 	// variable pos will contain number of integers read in from user
 
-
 	printf("The second smallest number is: ");
-	recursiveSecondSmallest(arr, pos);
+	int smallest, secondSmallest;
+	int counter = 2;
+
+	if (arr[0] < arr[1]){
+		smallest = arr[0];
+		secondSmallest = arr[1];
+	}else{
+		smallest = arr[1];
+		secondSmallest = arr[0];
+	}
+	recursiveSecondSmallest(arr, pos, smallest, secondSmallest, counter);
 
 
 	return 0;

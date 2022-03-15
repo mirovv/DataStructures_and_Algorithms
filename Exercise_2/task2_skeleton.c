@@ -24,7 +24,7 @@ void recursiveSecondSmallest(int arr[], int n, int smallest, int second, int cou
 			second = arr[counter];
 		}
 		counter++;
-		recursiveSecondSmallest(arr, n, smallest, second, counter);
+		return recursiveSecondSmallest(arr, n, smallest, second, counter);
 	}
 }
 

@@ -44,13 +44,14 @@ void mergeSort(int A[], int l, int r){
         mergeSort(A, m+1, r);
         merge(A, l, r, m);
     }
-
 }
 
 int main(){
     int A[] = {5,2,4,7,1,3,6,2};
     int l = 0;
     int size = sizeof(A) / sizeof(A[0]);
+
+    printf("Size: %d\n", size);
 
     printf("Array before Mergesort: ");
     printArray(A, size);

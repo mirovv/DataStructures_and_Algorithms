@@ -63,7 +63,7 @@ void heapsort(int A[], int n){
 }
 
 int main(){
-    int A[] = {46,77,55,38,41,85};
+    int A[] = {11, 0, 9 ,19, 8, 1, 5, 13, 18, 7};
     int size = sizeof(A) / sizeof(A[0]);
 
     printf("Size: %d\n", size);
@@ -71,7 +71,7 @@ int main(){
     printf("Array before Heapsort: ");
     printArray(A, size);
 
-    buildHeap(A, size);
+    heapsort(A, size);
 
     printf("Array after Heapsort: ");
     printArray(A, size);

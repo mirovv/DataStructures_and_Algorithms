@@ -11,13 +11,13 @@ void printArray(int arr[], int size){
 }
 
 int LomutoPartition(int A[], int l, int r){
-    int x, i, j, temp;
+    int pivot, i, j, temp;
 
-    x = A[r]; // pivot element (we take the right most element)
+    pivot = A[r]; // pivot element (we take the right most element)
     i = l - 1; // lagging pointer
 
     for (j = l; j < r; j++){
-        if (A[j] <= x){
+        if (A[j] <= pivot){
             i++;
             temp = A[i];
             A[i] = A[j];
@@ -40,17 +40,16 @@ void QuickSort(int A[], int l, int r){
     }
 }
 
-
 int main(){
     int A[] = {11, 0, 9 ,19, 8, 1, 5, 13, 18, 7};
     int size = sizeof(A) / sizeof(A[0]) - 1;
 
-    printf("Array before Quicksort: ");
+    printf("Array before Quicksort (Lomuto): ");
     printArray(A, size);
 
     QuickSort(A, 0, size);
 
-    printf("Array after Quicksort: ");
+    printf("Array after Quicksort (Lomuto): ");
     printArray(A, size);
 
     return 0;

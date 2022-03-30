@@ -12,7 +12,7 @@ void printArray(int arr[], int size){
 
 int LomutoPartition(int A[], int l, int r){
     int x, i, j, temp;
-    
+
     x = A[r]; // pivot element (we take the right most element)
     i = l - 1; // lagging pointer
 
@@ -54,4 +54,4 @@ int main(){
     printArray(A, size);
 
     return 0;
-}
+} 

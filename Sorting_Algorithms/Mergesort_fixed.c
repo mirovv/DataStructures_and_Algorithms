@@ -10,11 +10,11 @@ void printArray(int arr[], int size){
     printf("\n");
 }
 void merge(int A[], int l, int r, int m){
-    int B[9];
+    int B[8];
     int i, j, k;
 
 
-    for (i = l; i < m; i++){ // "i <= m" geändert zu "i < m"
+    for (i = l; i <= m; i++){ // "i <= m" geändert zu "i < m"
         B[i] = A[i];
     }
 
@@ -47,7 +47,7 @@ void mergeSort(int A[], int l, int r){
 }
 
 int main(){
-    int A[] = {5,2,4,7,1,3,6,2,9};
+    int A[] = {5,2,4,7,1,3,6,2};
     int l = 0;
     int size = sizeof(A) / sizeof(A[0]);
 

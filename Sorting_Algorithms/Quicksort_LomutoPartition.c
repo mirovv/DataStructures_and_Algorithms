@@ -17,6 +17,7 @@ int LomutoPartition(int A[], int l, int r){
     i = l - 1; // lagging pointer
 
     for (j = l; j < r; j++){
+        
         if (A[j] <= pivot){
             i++;
             temp = A[i];

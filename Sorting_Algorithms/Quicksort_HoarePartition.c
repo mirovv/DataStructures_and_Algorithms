@@ -18,7 +18,8 @@ int HoarePartition(int A[], int l, int r){
     j = r + 1;
 
     while (1){
-        
+        do j--; while (A[j] > pivot);
+        do i++; while (A[i] < pivot);
 
         if (i < j){
             temp = A[i];
@@ -35,7 +36,7 @@ void QuickSort(int A[], int l, int r){
     if (l < r){
         m = HoarePartition(A, l, r);
         QuickSort(A, l, m-1); // smallest elements
-        QuickSort(A, m+1, r); // largest elements
+        QuickSort(A, m, r); // largest elements
     }
 }
 

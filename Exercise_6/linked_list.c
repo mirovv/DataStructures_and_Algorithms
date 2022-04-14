@@ -50,7 +50,7 @@ struct Node* joining2LinkedLists(struct Node* odd, struct Node* even){
         while(current->next != NULL){
             current = current->next;
         }
-        current->next = even; // wieso chan ich nachher groupedList returne obwohl ich de even teil ja ah current appende und nöd a groupedList
+        current->next = even;
     }
     return groupedList;
 }

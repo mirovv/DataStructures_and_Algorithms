@@ -2,6 +2,12 @@
     "files.associations": {
         "stdio.h": "c",
         "stdlib.h": "c",
-        "random": "c"
+        "random": "c",
+        "deque": "c",
+        "functional": "c",
+        "string": "c",
+        "unordered_map": "c",
+        "vector": "c",
+        "*.tcc": "c"
     }
 }

@@ -35,14 +35,6 @@ struct TreeNode* searchTreeLinearly(struct TreeNode* root, int val){
     }
     return root;
 }
-
-struct TreeNode* findTreeMin(struct TreeNode* root){
-    while (root->left != NULL){
-        root = root->left;
-    }
-    return root;
-}
-
 struct TreeNode* searchTreeRecursively(struct TreeNode* root, int val){
 
     // do I really need the current.. first I handled it all with root (same solution)
@@ -62,27 +54,105 @@ struct TreeNode* searchTreeRecursively(struct TreeNode* root, int val){
     }
 }
 
+// we need this if we need to delete a node with two children
+// --> we can either place the smallest node of the right subtree of the node to be deleted in its place
+// ----> or we can place the largest node of the left subtree in its place
+
+// SMALLEST NODE
+struct TreeNode* findTreeMin(struct TreeNode* root){
+    struct TreeNode* current = root;
+
+    // find the leftmost leaf
+    while (current && current->left != NULL){
+        current = current->left;
+    }
+    return current;
+}
+
+// LARGEST NODE
+struct TreeNode* findTreeMax(struct TreeNode* root){
+    struct TreeNode* current = root;
+
+    while (current && current->right != NULL){
+        current = current->right;
+    }
+    return current;
+}
+
+// struct TreeNode* delete(struct TreeNode* root, int val){
+//     struct TreeNode* current = malloc(sizeof(struct TreeNode));
+//     struct TreeNode* lagging = malloc(sizeof(struct TreeNode));
+//     current = root;
+
+//     // return if tree is empty
+//     if (root == NULL){
+//         return root;
+//     }
+//     while (current->val != val){
+//         lagging = current;
+//         if (current->val < val){
+//             current = current->right;
+//         }else{
+//             current = current->left;
+//         }
+//     }
+//     if (current->left == NULL && current->right == NULL){ 
+//         // node to be deleted has no children
+//         free(current);
+//     }else if (current->left == NULL){ // has a right child
+//         lagging = current->right;
+//         free(current->right);
+//     }else if (current->right == NULL){ // has a left child
+//         lagging = current->left;
+//         free(current->left);
+//     }else{ // has left and right child
+//         struct TreeNode* temp = findTreeMin(root->right);
+//         root->val = temp->val;
+//         root->right = delete(root->right, temp->val);
+//     }
+//     return root;
+// }
+
 struct TreeNode* delete(struct TreeNode* root, int val){
-    struct TreeNode* current = malloc(sizeof(struct TreeNode));
-    struct TreeNode* lagging = malloc(sizeof(struct TreeNode));
-    current = root;
+
+    // return if tree is empty
     if (root == NULL){
         return root;
     }
-    while (current->val != val){
-        lagging = current;
-        if (current->val < val){
-            current = current->right;
-        }else{
-            current = current->left;
+    // find the node to be deleted
+    if (val < root->val){
+        root->left = delete(root->left, val);
+    }else if (val > root->val){
+        root->right = delete(root->right, val);
+    }else{
+        // If the node has only one child or no child
+        if (root->left == NULL){
+            struct TreeNode* temp = root->right;
+            free(root);
+            return temp;
+        }else if (root->right == NULL){
+            struct TreeNode* temp = root->left;
+            free(root);
+            return temp;
         }
-    }
-    if (current->left == NULL && current->right == NULL){ 
-        // node to be deleted has no children
-        free(current);
-    }else if (current->left == NULL){
-        // node has one child (left or right)
-    }
+        // if the node has 2 children, find maxValueNode of left subtree (or minValueNode of right subtree)
+        struct TreeNode* temp = findTreeMax(root->left);
+
+        // place the inorder successor in position of the node to be deleted
+        root->val = temp->val;
+
+        // delete the inorder successor
+        root->left = delete(root->left, temp->val);
+
+        
+        /* IF YOU WANT TO REPLACE WITH MIN. VALUE OF RIGHT SUBTREE */
+
+        // struct TreeNode* temp = findTreeMin(root->right);
+        // root->val = temp->val;
+        // root->right = delete(root->right, temp->val);
+    
+    }   
+    return root;
 }
 
 void printTree(struct TreeNode* root){
@@ -96,24 +166,28 @@ void printTree(struct TreeNode* root){
 int main(){
     struct TreeNode* root = NULL;
 
-    root = insert(root, 7);
-    root = insert(root, 3);
-    root = insert(root, 4);
-    root = insert(root, 6);
-    root = insert(root, 5);
     root = insert(root, 8);
-    root = insert(root, 9);
+    root = insert(root, 3);
+    root = insert(root, 1);
+    root = insert(root, 6);
+    root = insert(root, 7);
+    root = insert(root, 7);
     root = insert(root, 10);
+    root = insert(root, 14);
+    root = insert(root, 4);
 
+    // struct TreeNode* x = searchTreeRecursively(root, 5);
+    // struct TreeNode* y = searchTreeLinearly(root, 5);
+    printf("Inorder traversal: ");
     printTree(root);
-    printf("\n");
-    struct TreeNode* x = searchTreeRecursively(root, 5);
-    struct TreeNode* y = searchTreeLinearly(root, 5);
+    printf("\nAfter deleting 10\n");
+    root = delete(root, 6);
+    printf("Inorder traversal: ");
     printTree(root);
-    printf("\nrecursive:  ");
-    printTree(x);
-    printf("\nlinear:  ");
-    printTree(y);
-    printf("\n");
+    // printf("\nrecursive:  ");
+    // printTree(x);
+    // printf("\nlinear:  ");
+    // printTree(y);
+    // printf("\n");
     return 1;
 }

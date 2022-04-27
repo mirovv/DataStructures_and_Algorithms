@@ -79,39 +79,62 @@ struct TreeNode* findTreeMax(struct TreeNode* root){
     return current;
 }
 
-// struct TreeNode* delete(struct TreeNode* root, int val){
-//     struct TreeNode* current = malloc(sizeof(struct TreeNode));
-//     struct TreeNode* lagging = malloc(sizeof(struct TreeNode));
-//     current = root;
-
-//     // return if tree is empty
-//     if (root == NULL){
-//         return root;
-//     }
-//     while (current->val != val){
-//         lagging = current;
-//         if (current->val < val){
-//             current = current->right;
-//         }else{
-//             current = current->left;
-//         }
-//     }
-//     if (current->left == NULL && current->right == NULL){ 
-//         // node to be deleted has no children
-//         free(current);
-//     }else if (current->left == NULL){ // has a right child
-//         lagging = current->right;
-//         free(current->right);
-//     }else if (current->right == NULL){ // has a left child
-//         lagging = current->left;
-//         free(current->left);
-//     }else{ // has left and right child
-//         struct TreeNode* temp = findTreeMin(root->right);
-//         root->val = temp->val;
-//         root->right = delete(root->right, temp->val);
-//     }
-//     return root;
-// }
+struct TreeNode* deleteNode(struct TreeNode* root, int val){
+    struct TreeNode* current = malloc(sizeof(struct TreeNode));
+    struct TreeNode* lagging = malloc(sizeof(struct TreeNode));
+    current = root;
+    lagging = NULL;
+    
+    // return if tree is empty
+    if (root == NULL){
+        return root;
+    }
+    while (current->val != val){
+        lagging = current;
+        if (current->val < val){
+            current = current->right;
+        }else{
+            current = current->left;
+        }
+    }
+    if (current->right == NULL){
+        if (lagging == NULL){
+            root = current->left;
+        }else if (lagging->left->val == current->val){
+            lagging->left = current->left;
+        }else{
+            lagging->right = current->left;
+        }
+    }else if (current->left == NULL){
+        if (lagging == NULL){
+            root = current->right;
+        }else if (lagging->left->val == current->val){
+            lagging->left = current->right;
+        }else{
+            lagging->right = current->right;
+        }
+    }else{
+        struct TreeNode* p = current->left;
+        struct TreeNode* q = p;
+        while (p->right != NULL){
+            q = p;
+            p = p->right;
+        }
+        if (lagging == NULL){
+            root = p;
+        }else if (lagging->left->val == current->val){
+            lagging->left = p;
+        }else{
+            lagging->right = p;
+        }
+        p->right = current->right;
+        if (q != p){
+            q->right = p->left;
+            p->left = current->left;
+        }
+    }
+    return root;
+}
 
 struct TreeNode* delete(struct TreeNode* root, int val){
 
@@ -171,7 +194,7 @@ int main(){
     root = insert(root, 1);
     root = insert(root, 6);
     root = insert(root, 7);
-    root = insert(root, 7);
+    root = insert(root, 9);
     root = insert(root, 10);
     root = insert(root, 14);
     root = insert(root, 4);
@@ -181,7 +204,7 @@ int main(){
     printf("Inorder traversal: ");
     printTree(root);
     printf("\nAfter deleting 10\n");
-    root = delete(root, 6);
+    root = deleteNode(root, 10);
     printf("Inorder traversal: ");
     printTree(root);
     // printf("\nrecursive:  ");

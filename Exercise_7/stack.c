@@ -5,7 +5,7 @@ typedef struct stack{
     unsigned int capacity;
     int* items;
     int top;
-} stack;
+}stack;
 
 stack* create(unsigned int capacity){
     stack* new_stack = malloc(sizeof(stack));

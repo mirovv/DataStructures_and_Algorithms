@@ -119,6 +119,14 @@ void printInorderTree(TreeNode* root){
     }
 }
 
+void printPreorderTree(TreeNode* root){
+    if (root != NULL){
+        printf("%d ", root->val);
+        printPreorderTree(root->left);
+        printPreorderTree(root->right);
+    }
+}
+
 TreeNode* searchTreeLinearly(struct TreeNode* root, int val){
     struct TreeNode* current = root;
     while (current != NULL && current->val != val){
@@ -159,7 +167,7 @@ TreeNode* deleteNode(TreeNode* root, int val){
         if (parent == NULL){ // root case
             root = current->right;
         }else if (parent->right == current){ // if it's a right child, make right child the new child 
-            parent->right = current->right; // this and next maybe wrong
+            parent->right = current->right;
         }else{
             parent->left = current->right;
         }
@@ -189,12 +197,28 @@ TreeNode* deleteNode(TreeNode* root, int val){
     return root;
 }
 
-TreeNode* buildBalancedTree(TreeNode* root, Stack* s){
-
+TreeNode* buildBalancedTree(Stack* s, int l, int r){
+    if (l > r){
+        return NULL;
+    }
+    int m = (l+r) / 2;
+    TreeNode* newBalancedTree = malloc(sizeof(TreeNode));
+    newBalancedTree->val = s->items[m];
+    newBalancedTree->left = buildBalancedTree(s, l, m-1);
+    newBalancedTree->right = buildBalancedTree(s, m+1, r);
+    return newBalancedTree;
 }
 
 int main(){
     TreeNode* root = NULL;
+
+    TreeNode* test = NULL;
+
+    test = insertNode(test, 5);
+    test = insertNode(test, 4);
+    test = insertNode(test, 3);
+    test = insertNode(test, 2);
+    test = insertNode(test, 1);
 
     root = insertNode(root, 12);
     root = insertNode(root, 5);
@@ -210,14 +234,44 @@ int main(){
     root = insertNode(root, 19);
     root = insertNode(root, 20);
 
+    printf("test: ");
+    printPreorderTree(test);
+    int amtTest = countNodes(test);
+    Stack* tstack = createStack(amtTest);
+    inorderTraversal(test, tstack);
+    printStack(tstack);
+    test = buildBalancedTree(tstack, 0, amtTest-1);
+    printf("\n");
+    printPreorderTree(test);
+    printf("\n");
+    printf("\n");
+
+
+
     int amountNodes = countNodes(root);
     Stack* stack = createStack(amountNodes);
 
     inorderTraversal(root, stack);
     printStack(stack);
 
-    root = deleteNode(root, 12);
+    root = deleteNode(root, 5);
+    printf("Inorder traversal: ");
     printInorderTree(root);
+    printf("\n");
+    printf("Preorder traversal: ");
+    printPreorderTree(root);
+    printf("\n");
+    amountNodes = countNodes(root);
+    stack = createStack(amountNodes);
+    inorderTraversal(root, stack);
+    printStack(stack);
+    root = buildBalancedTree(stack, 0, amountNodes-1);
+    printf("Inorder traversal: ");
+    printInorderTree(root);
+    printf("\n");
+    printf("Preorder traversal: ");
+    printPreorderTree(root);
+    printf("\n");
 
 
     return 1;

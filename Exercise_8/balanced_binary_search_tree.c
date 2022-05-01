@@ -209,10 +209,26 @@ TreeNode* buildBalancedTree(Stack* s, int l, int r){
     return newBalancedTree;
 }
 
+TreeNode* TrimBST(TreeNode* root, int low, int high){
+    if (root == NULL){
+        return root;
+    }else{
+        if (root->val > high){
+            return TrimBST(root->left, low, high);
+        }
+        if (root->val < low){
+            return TrimBST(root->right, low, high);
+        }
+    }
+    root->left = TrimBST(root->left, low, high);
+    root->right = TrimBST(root->right, low, high);
+    return root;
+}
+
 int main(){
     TreeNode* root = NULL;
-
     TreeNode* test = NULL;
+    TreeNode* trimTree = NULL;
 
     test = insertNode(test, 5);
     test = insertNode(test, 4);
@@ -233,6 +249,15 @@ int main(){
     root = insertNode(root, 22);
     root = insertNode(root, 19);
     root = insertNode(root, 20);
+
+    trimTree = insertNode(trimTree, 12);
+    trimTree = insertNode(trimTree, 35);
+    trimTree = insertNode(trimTree, 17);
+    trimTree = insertNode(trimTree, 9);
+    trimTree = insertNode(trimTree, 29);
+    trimTree = insertNode(trimTree, 28);
+    trimTree = insertNode(trimTree, 45);
+    trimTree = insertNode(trimTree, 50);
 
     printf("test: ");
     printPreorderTree(test);
@@ -273,6 +298,22 @@ int main(){
     printPreorderTree(root);
     printf("\n");
 
+    printf("\n-------------------------\n");
+    printf("Inorder traversal: ");
+    printInorderTree(trimTree);
+    printf("\n");
+    printf("Preorder traversal: ");
+    printPreorderTree(trimTree);
+    printf("\n");
+
+    trimTree = TrimBST(trimTree, 17, 45);
+    printf("\n-------------------------\n");
+    printf("Inorder traversal: ");
+    printInorderTree(trimTree);
+    printf("\n");
+    printf("Preorder traversal: ");
+    printPreorderTree(trimTree);
+    printf("\n");
 
     return 1;
 }

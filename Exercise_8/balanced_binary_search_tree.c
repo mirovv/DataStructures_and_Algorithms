@@ -111,10 +111,82 @@ Stack* inorderTraversal(TreeNode* root, Stack* s){
     return s;
 }
 
+void printInorderTree(TreeNode* root){
+    if(root != NULL){
+        printInorderTree(root->left);
+        printf("%d ", root->val);
+        printInorderTree(root->right);
+    }
+}
+
+TreeNode* searchTreeLinearly(struct TreeNode* root, int val){
+    struct TreeNode* current = root;
+    while (current != NULL && current->val != val){
+        if (val < current->val){
+            current = current->left;
+        }else{
+            current = current->right;
+        }
+    }
+    return current;
+}
+
 TreeNode* deleteNode(TreeNode* root, int val){
-    if (root == NULL){
+    TreeNode* x = searchTreeLinearly(root, val);
+    if (x == NULL){
         return root;
     }
+    TreeNode* current = root;
+    TreeNode* parent = NULL;
+    while (current != x){
+        parent = current;
+        if (current->val < x->val){
+            current = current->right;
+        }else{
+            current = current->left;
+        }
+    }
+    // Leaf and root case
+    if (current->right == NULL){
+        if (parent == NULL){ // this is the case when the node to be deleted is root itself
+            root = current->left;
+        }else if (parent->left == current){ // if it's a left child, make left child the new child
+            parent->left = current->left;
+        }else{
+            parent->right = current->left;
+        }
+    }else if (current->left == NULL){ // mirror case
+        if (parent == NULL){ // root case
+            root = current->right;
+        }else if (parent->right == current){ // if it's a right child, make right child the new child 
+            parent->right = current->right; // this and next maybe wrong
+        }else{
+            parent->left = current->right;
+        }
+    // 2 children cases
+    }else{
+        TreeNode* maxLeft = current->left;
+        TreeNode* parentMaxLeft = maxLeft;
+        // now maxLeft and parent it the right way
+        while (maxLeft->right != NULL){
+            parentMaxLeft = maxLeft;
+            maxLeft = maxLeft->right;
+        }
+        if (parent == NULL){ // we are at root (exchange with maxLeft)
+            root = maxLeft;
+        }else if (parent->left == current){ // if it's a left child
+            parent->left = maxLeft; // let parent.left point to maxLeft
+        }else{
+            parent->right = maxLeft;
+        }
+        maxLeft->right = current->right; // append the rest of the tree to maxLeft.right
+        if (maxLeft != parentMaxLeft){
+            parentMaxLeft->right = maxLeft->left;
+            maxLeft->left = current->left;
+        }
+    }
+    free(current);
+    return root;
 }
 
 TreeNode* buildBalancedTree(TreeNode* root, Stack* s){
@@ -124,21 +196,28 @@ TreeNode* buildBalancedTree(TreeNode* root, Stack* s){
 int main(){
     TreeNode* root = NULL;
 
-    root = insertNode(root, 8);
+    root = insertNode(root, 12);
+    root = insertNode(root, 5);
     root = insertNode(root, 3);
     root = insertNode(root, 1);
-    root = insertNode(root, 6);
-    root = insertNode(root, 7);
-    root = insertNode(root, 5);
-    root = insertNode(root, 10);
-    root = insertNode(root, 14);
     root = insertNode(root, 4);
+    root = insertNode(root, 7);
+    root = insertNode(root, 9);
+    root = insertNode(root, 18);
+    root = insertNode(root, 15);
+    root = insertNode(root, 17);
+    root = insertNode(root, 22);
+    root = insertNode(root, 19);
+    root = insertNode(root, 20);
 
     int amountNodes = countNodes(root);
     Stack* stack = createStack(amountNodes);
 
     inorderTraversal(root, stack);
     printStack(stack);
+
+    root = deleteNode(root, 12);
+    printInorderTree(root);
 
 
     return 1;

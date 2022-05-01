@@ -26,22 +26,23 @@ struct TreeNode* insert(struct TreeNode* root, int val){
 }
 
 struct TreeNode* searchTreeLinearly(struct TreeNode* root, int val){
-    while (root != NULL && root->val != val){
-        if (val < root->val){
-            root = root->left;
+    struct TreeNode* current = malloc(sizeof(struct TreeNode));
+    current = root;
+    while (current != NULL && current->val != val){
+        if (val < current->val){
+            current = current->left;
         }else{
-            root = root->right;
+            current = current->right;
         }
     }
-    return root;
+    return current;
 }
 struct TreeNode* searchTreeRecursively(struct TreeNode* root, int val){
 
     // do I really need the current.. first I handled it all with root (same solution)
     // what is the point in returning the node???
 
-    struct TreeNode* current = malloc(sizeof(struct TreeNode));
-    current = root;
+    struct TreeNode* current = root;
     if (root == NULL){
         printf("\nDoes not exist in tree\n");
         return root;

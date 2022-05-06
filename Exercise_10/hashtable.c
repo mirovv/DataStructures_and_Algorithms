@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
+
 
 #define m 7
 #define OCCUPIED 0
@@ -75,7 +75,7 @@ int search(struct HTElement A[], int key){
 }
 
 void printHashTable(struct HTElement A[]) {
-    printf("------------- Start -------------\n");
+    printf("\n------------- Start -------------\n");
     int i;
     printf("Table size: %d\n\n", m); 
     for (i = 0; i < m; i++){
@@ -87,7 +87,7 @@ void printHashTable(struct HTElement A[]) {
             printf("i: %d\tkey: EMPTY\n", i);
         }
     }
-    printf("\n------------- End -------------\n");
+    printf("\n------------- End -------------\n\n");
 }
 
 int main(){
@@ -105,7 +105,10 @@ int main(){
     delete(HT, 9999);
     printHashTable(HT);
     int x = search(HT, 1313);
-    int y = search(HT, 7777);
+    delete(HT,1313);
+    printHashTable(HT);
+    search(HT, 1313);
+    search(HT, 7777);
 
 
 

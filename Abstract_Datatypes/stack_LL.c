@@ -60,6 +60,12 @@ int main(){
     printf("\n\nShould print 7: --> %d\n", pop(myStack));
     printf("\n\nShould print: 22 -- 9 -- 5\n");
     printStack(myStack);
+    pop(myStack);
+    pop(myStack);
+    pop(myStack);
+    printf("Should print 'Stack is empty': -->");
+    printStack(myStack);
+
 
 
     return 1;

@@ -10,10 +10,8 @@ Node* init(Node* head){
     if (head == NULL){
         head = malloc(sizeof(Node));
         head->next = NULL; 
-        return head;
-    }else{
-        return head;
     }
+    return head;
 }
 
 void printLL(Node* head){

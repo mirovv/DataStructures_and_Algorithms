@@ -130,6 +130,7 @@ int main(){
     myLL = delete_First_Occurence(myLL, 8);
     myLL = delete_First_Occurence(myLL, 8);
     myLL = delete_First_Occurence(myLL, 3);
+    myLL = delete_First(myLL);
     printLL(myLL);
 
 

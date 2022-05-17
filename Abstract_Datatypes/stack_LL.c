@@ -7,48 +7,47 @@ typedef struct Node{
     struct Node* next;
 }Node;
 
-Node* push(Node* stack, int val){
+void push(Node** stack, int val){
+    Node* top = *stack;
     // insert at the beginning
-    if (stack == NULL){
-        stack = malloc(sizeof(Node));
-        stack->next = NULL;
-        stack->val = val;
+    if (top == NULL){
+        top = malloc(sizeof(Node));
+        top->next = NULL;
+        top->val = val;
+        *stack = top;
     }else{
         Node* temp = malloc(sizeof(Node));
         temp->val = val;
-        temp->next = stack;
-        stack = temp;
+        temp->next = top;
+        top = temp;
+        *stack = top;
     }
-    return stack;
 }
-// Node* deleteFirstElement(Node* stack){
-//     Node* firstNode = stack;
-//     Node* temp = stack->next;
-//     stack = temp;
-//     free(firstNode);
-//     return stack;
-// }
 
-int pop(Node* stack){
+int pop(Node** stack){
+    Node* top = *stack; 
+    
     // delete first element and return it
-    if (stack == NULL){
-        printf("Stack is empty!\n");
+    if (*stack == NULL){
+        printf("\nNo more items to pop...\n");
         return -1;
     }else{
-        int res = stack->val;
-        Node* firstNode = stack;
-        Node* temp = stack->next;
-        stack = temp;
+        int res = top->val;
+        Node* firstNode = top;
+        Node* temp = top->next;
+        top = temp;
         free(firstNode);
+        *stack = top;
         return res;
     }
 }
 
-void printStack(Node* stack){
-    if (stack == NULL){
+void printStack(Node** stack){
+    Node* current = *stack;
+    if (current == NULL){
         printf("  Empty\n");
+        return;
     }
-    Node* current = stack;
     while(current != NULL){
         if(current->next != NULL){
             printf(" %d --", current->val);
@@ -61,23 +60,26 @@ void printStack(Node* stack){
 
 
 int main(){
-    Node* myStack = NULL;
+    Node** myStack = malloc(sizeof(Node));
+    *myStack = NULL;
     printf("Should print 'Empty': -->");
     printStack(myStack);
-    myStack = push(myStack, 5);
-    myStack = push(myStack, 9);
-    myStack = push(myStack, 22);
-    myStack = push(myStack, 7);
-    printf("\n\nShould print: 7 -- 22 -- 9 -- 5\n");
+    push(myStack, 5);
+    push(myStack, 9);
+    push(myStack, 22);
+    push(myStack, 7);
     printStack(myStack);
-    printf("\n\nShould print 7: --> %d\n", pop(myStack));
-    printf("\n\nShould print: 22 -- 9 -- 5\n");
+    printf("\nShould print: 7 -- 22 -- 9 -- 5\n");
     printStack(myStack);
-    // pop(myStack);
-    // pop(myStack);
-    // pop(myStack);
-    // printf("Should print 'Stack is empty': -->");
-    // printStack(myStack);
+    printf("\nShould print 7: --> %d\n", pop(myStack));
+    printf("Should print: 22 -- 9 -- 5\n");
+    printStack(myStack);
+    pop(myStack);
+    pop(myStack);
+    pop(myStack);
+    pop(myStack);
+    printf("Should print 'Stack is empty': -->");
+    printStack(myStack);
 
 
 

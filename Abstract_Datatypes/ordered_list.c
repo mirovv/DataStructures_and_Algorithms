@@ -10,22 +10,22 @@ typedef struct Node{
 void insert(Node** head, Node** tail, int value){
     Node* newNode = malloc(sizeof(Node));
     newNode->val = value;
-    if (*head == NULL){
+    if (*head == NULL){ // if list is empty
         newNode->previous = NULL;
         newNode->next = NULL;
         *tail = newNode;
         *head = newNode;
-    }else if (newNode->val <= (*head)->val){
+    }else if (newNode->val <= (*head)->val){ // if node is smaller then head
         newNode->previous = NULL;
         newNode->next = *head;
         *head = newNode;
-    }else{
+    }else{ // if list is not empty --> find right place for node
         Node* current = *head;
-        if (newNode->val >= (*tail)->val){
+        if (newNode->val >= (*tail)->val){ // check if node is larger then tail (insert at end)
             (*tail)->next = newNode;
             newNode->previous = *tail;
             *tail = newNode;
-        }else{
+        }else{ // iterate through list to find correct spot for new node
             while (current->next->val < newNode->val && current->next != NULL){
             current = current->next;
             }

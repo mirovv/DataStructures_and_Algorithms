@@ -15,15 +15,25 @@ void insert(Node** head, Node** tail, int value){
         newNode->next = NULL;
         *tail = newNode;
         *head = newNode;
+    }else if (newNode->val <= (*head)->val){
+        newNode->previous = NULL;
+        newNode->next = *head;
+        *head = newNode;
     }else{
         Node* current = *head;
-        while (current->next->val < newNode->val){
+        if (newNode->val >= (*tail)->val){
+            (*tail)->next = newNode;
+            newNode->previous = *tail;
+            *tail = newNode;
+        }else{
+            while (current->next->val < newNode->val && current->next != NULL){
             current = current->next;
+            }
+            newNode->previous = current;
+            newNode->next = current->next;
+            current = current->next;
+            current->previous = newNode;
         }
-        newNode->previous = current;
-        newNode->next = current->next;
-        current->next->next = current->next;
-        current->next = newNode;
     }
 }
 
@@ -56,6 +66,8 @@ int main(){
     insert(head, tail, 9);
     printList(head);
     insert(head, tail, 1);
+    printList(head);
+    insert(head, tail, 0);
     printList(head);
 
 

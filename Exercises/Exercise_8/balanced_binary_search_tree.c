@@ -127,6 +127,14 @@ void printPreorderTree(TreeNode* root){
     }
 }
 
+void printPostorderTree(TreeNode* root){
+    if (root != NULL){
+        printPreorderTree(root->left);
+        printPreorderTree(root->right);        
+        printf("%d ", root->val);
+    }
+}
+
 TreeNode* searchTreeLinearly(struct TreeNode* root, int val){
     struct TreeNode* current = root;
     while (current != NULL && current->val != val){
@@ -229,6 +237,34 @@ int main(){
     TreeNode* root = NULL;
     TreeNode* test = NULL;
     TreeNode* trimTree = NULL;
+    TreeNode* groot = NULL;
+
+    groot = insertNode(groot, 8);
+    groot = insertNode(groot, 4);
+    groot = insertNode(groot, 12);
+    groot = insertNode(groot, 2);
+    groot = insertNode(groot, 5);
+    groot = insertNode(groot, 11);
+    groot = insertNode(groot, 14);
+    groot = insertNode(groot, 1);
+    groot = insertNode(groot, 3);
+    groot = insertNode(groot, 6);
+    groot = insertNode(groot, 7);
+    groot = insertNode(groot, 9);
+    groot = insertNode(groot, 10);
+    groot = insertNode(groot, 13);
+    groot = insertNode(groot, 15);
+
+    printf("Inorder traversal groot: ");
+    printInorderTree(groot);
+    printf("\n");
+    printf("Preorder traversal groot: ");
+    printPreorderTree(groot);
+    printf("\n");
+    printf("Postorder traversal groot: ");
+    printPostorderTree(groot);
+    printf("\n");
+    printf("\n");
 
     test = insertNode(test, 5);
     test = insertNode(test, 4);
@@ -242,6 +278,7 @@ int main(){
     root = insertNode(root, 1);
     root = insertNode(root, 4);
     root = insertNode(root, 7);
+    root = insertNode(root, 6);
     root = insertNode(root, 9);
     root = insertNode(root, 18);
     root = insertNode(root, 15);
@@ -269,6 +306,16 @@ int main(){
     printf("\n");
     printPreorderTree(test);
     printf("\n");
+
+    printf("Inorder traversal: ");
+    printInorderTree(root);
+    printf("\n");
+    printf("Preorder traversal: ");
+    printPreorderTree(root);
+    printf("\n");
+    printf("Postorder traversal: ");
+    printPostorderTree(root);
+    printf("\n");
     printf("\n");
 
 
@@ -280,12 +327,6 @@ int main(){
     printStack(stack);
 
     root = deleteNode(root, 5);
-    printf("Inorder traversal: ");
-    printInorderTree(root);
-    printf("\n");
-    printf("Preorder traversal: ");
-    printPreorderTree(root);
-    printf("\n");
     amountNodes = countNodes(root);
     stack = createStack(amountNodes);
     inorderTraversal(root, stack);
@@ -296,6 +337,9 @@ int main(){
     printf("\n");
     printf("Preorder traversal: ");
     printPreorderTree(root);
+    printf("\n");
+    printf("Postorder traversal: ");
+    printPostorderTree(root);
     printf("\n");
 
     printf("\n-------------------------\n");

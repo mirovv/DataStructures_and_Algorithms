@@ -205,7 +205,7 @@ int main(){
     printf("Inorder traversal: ");
     printTree(root);
     printf("\nAfter deleting 10\n");
-    root = deleteNode(root, 10);
+    root = delete(root, 10);
     printf("Inorder traversal: ");
     printTree(root);
     // printf("\nrecursive:  ");

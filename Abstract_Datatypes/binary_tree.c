@@ -177,11 +177,16 @@ void delete(Node** root, int x){
             }else{  // deleteMe is internal Node
                 if(parent->left == deleteMe){   // if deleteMe is left child of parent
                     printf("\nis left child of parent\n");
-                    successor->right = deleteMe->right;
+                    if(successor->right == NULL){
+                        successor->right = deleteMe->right;
+                    }
                     parent->left = successor;
                 }else{  // if deleteMe is right child of parent
                     printf("\nis right child of parent\n");
-                    successor->left = deleteMe->left;
+                    printf("\nvalue: %d", successor->left->data);
+                    if(successor->left == NULL){
+                        successor->left = deleteMe->left;
+                    }
                     parent->right = successor;
                 }
             }

@@ -132,20 +132,21 @@ void delete(Node** root, int x){
         }
         // Case 3: if deleteMe has two children
         else{
-            Node* successor = NULL;
-            if (deleteMe->left != NULL){
-                successor = TreeMax(&deleteMe->left);
-                printf("\nMax Successor of %d is %d", deleteMe->data, successor->data);
+            Node* successor = TreeMax(&deleteMe->left);
+            Node* parentSucc = findParent(root, successor);
+            printf("\nMax Successor of %d is %d", deleteMe->data, successor->data);
+
+            // if deleteMe is root:
+            if(deleteMe == *root){
+                printf("\nvalue parentSucc: %d", parentSucc->data);
+                parentSucc->right = successor->left;
+                successor->left = (*root)->left;
+                successor->right = (*root)->right;
+                *root = successor;
             }else{
-                successor = TreeMin(&deleteMe->right);
-                printf("\nMin Successor of %d is %d", deleteMe->data, successor->data);
+                // deleteMe is internal Node
+                printf("nope");
             }
-            parent = findParent(root, successor);
-            // if(deleteMe == *root){
-            //     successor->left = (*root)->left;
-            //     successor->right = (*root)->right;
-            //     *root = successor;
-            // }
         }
     }
     free(deleteMe);
@@ -162,15 +163,15 @@ void inorderTreewalk(Node** root){
 void preorderTreewalk(Node** root){
     if (*root != NULL){
         printf("%d ", (*root)->data);
-        inorderTreewalk(&(*root)->left);
-        inorderTreewalk(&(*root)->right);
+        preorderTreewalk(&(*root)->left);
+        preorderTreewalk(&(*root)->right);
     }
 }
 
 void postorderTreewalk(Node** root){
     if (*root != NULL){
-        inorderTreewalk(&(*root)->left);
-        inorderTreewalk(&(*root)->right);
+        postorderTreewalk(&(*root)->left);
+        postorderTreewalk(&(*root)->right);
         printf("%d ", (*root)->data);
     }
 }

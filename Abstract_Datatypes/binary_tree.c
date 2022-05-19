@@ -43,10 +43,35 @@ Node* TreeMin(Node** root){
 }
 
 Node* TreeMax(Node** root){
-    while(*root && (*root)->right != NULL){
-        *root = (*root)->right;
+    Node* current = *root;
+    while(current && current->right != NULL){
+        current = current->right;
     }
-    return *root;
+    return current;
+}
+
+void inorderTreewalk(Node** root){
+    if (*root != NULL){
+        inorderTreewalk(&(*root)->left);
+        printf("%d ", (*root)->data);
+        inorderTreewalk(&(*root)->right);
+    }
+}
+
+void preorderTreewalk(Node** root){
+    if (*root != NULL){
+        printf("%d ", (*root)->data);
+        preorderTreewalk(&(*root)->left);
+        preorderTreewalk(&(*root)->right);
+    }
+}
+
+void postorderTreewalk(Node** root){
+    if (*root != NULL){
+        postorderTreewalk(&(*root)->left);
+        postorderTreewalk(&(*root)->right);
+        printf("%d ", (*root)->data);
+    }
 }
 
 Node* findSuccessor(Node** root, int x){
@@ -78,16 +103,23 @@ Node* findSuccessor(Node** root, int x){
 
 Node* findParent(Node** root, Node* x){
     Node* parent = NULL;
-    if(*root == NULL){
+    Node* current = *root;
+    if(current == NULL){
         printf("\nNode does not exist in Tree!\n");
         return NULL;
-    }else if((*root)->left == x || (*root)->right == x){
-        return *root;
-    }else if(x->data < (*root)->data){
-        return findParent(&(*root)->left, x);
     }else{
-        return findParent(&(*root)->right, x);
+        while (current != NULL){
+            if(current->left == x || current->right == x){
+                parent = current;
+                break;
+            }else if(x->data < current->data){
+                current = current->left;
+            }else{
+                current = current->right;
+            }
+        }
     }
+    return parent;
 }
 
 void delete(Node** root, int x){
@@ -104,7 +136,7 @@ void delete(Node** root, int x){
             current = current->right;
         }
     }
-    printf("\nDeleting node with value %d", deleteMe->data);
+    printf("\nDeleting node with value %d\n", deleteMe->data);
     if (deleteMe == NULL){
         printf("\nNode does not exist in Tree!\n");
     }else{
@@ -136,45 +168,28 @@ void delete(Node** root, int x){
             Node* parentSucc = findParent(root, successor);
             printf("\nMax Successor of %d is %d", deleteMe->data, successor->data);
 
-            // if deleteMe is root:
-            if(deleteMe == *root){
+            if(parent == NULL){ // if deleteMe is root
                 printf("\nvalue parentSucc: %d", parentSucc->data);
                 parentSucc->right = successor->left;
                 successor->left = (*root)->left;
                 successor->right = (*root)->right;
                 *root = successor;
-            }else{
-                // deleteMe is internal Node
-                printf("nope");
+            }else{  // deleteMe is internal Node
+                if(parent->left == deleteMe){   // if deleteMe is left child of parent
+                    printf("\nis left child of parent\n");
+                    successor->right = deleteMe->right;
+                    parent->left = successor;
+                }else{  // if deleteMe is right child of parent
+                    printf("\nis right child of parent\n");
+                    successor->left = deleteMe->left;
+                    parent->right = successor;
+                }
             }
         }
     }
     free(deleteMe);
 }
 
-void inorderTreewalk(Node** root){
-    if (*root != NULL){
-        inorderTreewalk(&(*root)->left);
-        printf("%d ", (*root)->data);
-        inorderTreewalk(&(*root)->right);
-    }
-}
-
-void preorderTreewalk(Node** root){
-    if (*root != NULL){
-        printf("%d ", (*root)->data);
-        preorderTreewalk(&(*root)->left);
-        preorderTreewalk(&(*root)->right);
-    }
-}
-
-void postorderTreewalk(Node** root){
-    if (*root != NULL){
-        postorderTreewalk(&(*root)->left);
-        postorderTreewalk(&(*root)->right);
-        printf("%d ", (*root)->data);
-    }
-}
 
 
 int main(){
@@ -206,7 +221,10 @@ int main(){
     // delete(root, 6);
     // printf("\nInorder: ");
     // inorderTreewalk(root);
-    delete(root, 9);
+    
+    delete(root, 12);
+    printf("\nPostorder: ");
+    postorderTreewalk(root);
     printf("\nInorder: ");
     inorderTreewalk(root);
     

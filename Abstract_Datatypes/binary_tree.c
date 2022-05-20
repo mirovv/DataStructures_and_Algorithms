@@ -155,12 +155,17 @@ void delete(Node** root, int x){
         }
         // Case 2: if deleteMe has one child
         else if(deleteMe->left == NULL || deleteMe->right == NULL){
-            if(deleteMe == current){
-                printf("Parent: %d, DeleteME: %d", parent->data, deleteMe->data);
-                if(deleteMe->left != NULL){
-                    parent->left = deleteMe->left;
+            if(parent->left == deleteMe){ // deleteMe is a left child
+                if(deleteMe->left == NULL){ // deleteMe has no left child
+                    parent->left = deleteMe->right;
                 }else{
+                    parent->left = deleteMe->left;
+                }
+            }else{ // deleteMe is a right child
+                if(deleteMe->left == NULL){ // deleteMe has no left child
                     parent->right = deleteMe->right;
+                }else{
+                    parent->right = deleteMe->left;
                 }
             }
         }
@@ -232,7 +237,7 @@ int main(){
     // printf("\nInorder: ");
     // inorderTreewalk(root);
     
-    delete(root, 10);
+    delete(root, 5);
     printf("\nPostorder: ");
     postorderTreewalk(root);
     printf("\nInorder: ");

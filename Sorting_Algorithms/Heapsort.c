@@ -39,30 +39,28 @@ void min_heapify(int A[], int i, int n){
     }
 }
 
-void max_heapify(int A[], int i, int n){
+void heapify(int A[], int i, int n){
     int m, l, r, temp;
-
     m = i;
     l = left(i);
     r = right(i);
 
-    if (l < n && A[l] < A[m]){
+    if (l < n && A[l] < A[m]){ // > for min heap
         m = l;
     }
-    if (r < n && A[r] < A[m]){
+    if (r < n && A[r] < A[m]){ // > for min heap
         m = r;
     }
     if (i != m){
         temp = A[i];
         A[i] = A[m];
         A[m] = temp;
-        max_heapify(A, m, n);
+        heapify(A, m, n);
     }
 }
 
 void buildHeap(int A[], int n){
     int i;
-
     for (i = n / 2; i >= 0; i--){
         max_heapify(A, i, n);
     }
@@ -71,9 +69,7 @@ void buildHeap(int A[], int n){
 void heapsort(int A[], int n){
     int s = n;
     int i, temp;
-
     buildHeap(A, n);
-    
     for (i = n-1; i > 0; i--){
         temp = A[i];
         A[i] = A[0];

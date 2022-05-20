@@ -77,6 +77,46 @@ void mergeSort(int A[], int l, int r){
     }
 }
 
+void heapify(int A[], int i, int n){
+    int m, l, r, temp;
+    m = i;
+    l = i * 2 + 1;
+    r = i * 2 + 2;
+
+    if (l < n && A[l] < A[m]){ // > for min heap
+        m = l;
+    }
+    if (r < n && A[r] < A[m]){ // > for min heap
+        m = r;
+    }
+    if (i != m){
+        temp = A[i];
+        A[i] = A[m];
+        A[m] = temp;
+        heapify(A, m, n);
+    }
+}
+void buildHeap(int A[], int n){
+    int i;
+    for (i = n / 2; i >= 0; i--){
+        max_heapify(A, i, n);
+    }
+}
+void heapsort(int A[], int n){
+    int s = n;
+    int i, temp;
+    buildHeap(A, n);
+    for (i = n-1; i > 0; i--){
+        temp = A[i];
+        A[i] = A[0];
+        A[0] = temp;
+        s--;
+        max_heapify(A, 0, s);
+    }
+}
+
+
+
 void printArray(int arr[], int size){
     int i;
 

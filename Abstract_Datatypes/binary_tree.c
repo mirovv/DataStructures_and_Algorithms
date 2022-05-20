@@ -139,6 +139,7 @@ void delete(Node** root, int x){
     printf("\nDeleting node with value %d\n", deleteMe->data);
     if (deleteMe == NULL){
         printf("\nNode does not exist in Tree!\n");
+        return;
     }else{
         // Case 1: if deleteMe has no children
         if(deleteMe->left == NULL && deleteMe->right == NULL){
@@ -155,6 +156,7 @@ void delete(Node** root, int x){
         // Case 2: if deleteMe has one child
         else if(deleteMe->left == NULL || deleteMe->right == NULL){
             if(deleteMe == current){
+                printf("Parent: %d, DeleteME: %d", parent->data, deleteMe->data);
                 if(deleteMe->left != NULL){
                     parent->left = deleteMe->left;
                 }else{
@@ -177,16 +179,19 @@ void delete(Node** root, int x){
             }else{  // deleteMe is internal Node
                 if(parent->left == deleteMe){   // if deleteMe is left child of parent
                     printf("\nis left child of parent\n");
-                    if(successor->right == NULL){
-                        successor->right = deleteMe->right;
+                    if(parentSucc != deleteMe){
+                        successor->left = deleteMe->left;
                     }
+                    successor->right = deleteMe->right;
+                    parentSucc->left = NULL;
                     parent->left = successor;
                 }else{  // if deleteMe is right child of parent
                     printf("\nis right child of parent\n");
-                    printf("\nvalue: %d", successor->left->data);
-                    if(successor->left == NULL){
-                        successor->left = deleteMe->left;
+                    if(parentSucc->right != deleteMe){
+                        successor->right = deleteMe->right;
                     }
+                    successor->left = deleteMe->left;
+                    parentSucc->right = NULL;
                     parent->right = successor;
                 }
             }
@@ -227,7 +232,7 @@ int main(){
     // printf("\nInorder: ");
     // inorderTreewalk(root);
     
-    delete(root, 12);
+    delete(root, 10);
     printf("\nPostorder: ");
     postorderTreewalk(root);
     printf("\nInorder: ");

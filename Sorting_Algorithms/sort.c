@@ -41,7 +41,6 @@ void selectionSort(int arr[], int n){
     }
 }
 
-// print array
 void printArray(int arr[], int size){
     int i;
 

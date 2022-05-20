@@ -41,6 +41,42 @@ void selectionSort(int arr[], int n){
     }
 }
 
+void merge(int A[], int l, int r, int m){
+    int B[9];
+    int i, j, k;
+
+
+    for (i = l; i < m; i++){ // "i <= m" geändert zu "i < m"
+        B[i] = A[i];
+    }
+
+    for (i = m; i < r; i++){ // "i = m+1" ersetzt mit "i = m"
+        B[r+m-i-1] = A[i]; // "r+m-i" ersetzt mit "r+m-i-1"
+    }
+
+    i = l;
+    j = r - 1; // "j = r" ersetzt mit "j = r - 1", weil sonst auf Zeile 33 ein Zugriff auf eine Position ausserhalb der aktuellen Array-Grenzen erfolgt
+
+    for (k = l; k < r; k++){
+        if (B[i] < B[j]){
+            A[k] = B[i];
+            i++;
+        }else{
+            A[k] = B[j];
+            j--;
+        }
+    }
+}
+void mergeSort(int A[], int l, int r){
+    int m;
+    if (l < r - 1){ // "l < r" geändert zu "l < r - 1", weil sonst der Algorithmus auf "Arrays" der Grösse 1 angewendet wird
+        m = (l + r) / 2;
+        mergeSort(A, l, m);
+        mergeSort(A, m, r); // "m+1" geändert zu "m", weil m ausserhalb des zu betrachtenden Arrays liegt und sonst ein Element verloren geht
+        merge(A, l, r, m);
+    }
+}
+
 void printArray(int arr[], int size){
     int i;
 
@@ -55,7 +91,7 @@ int main(){
     
     int n = sizeof(A) / sizeof(int);
 
-    insertionSort(A, n);
+    mergeSort(A, 0, n);
     printArray(A,n);
 
 

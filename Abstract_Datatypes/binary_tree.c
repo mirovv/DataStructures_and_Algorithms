@@ -205,7 +205,19 @@ void delete(Node** root, int x){
     free(deleteMe);
 }
 
-
+void minAggregate(Node** root){
+    while (*root != NULL){
+        minAggregate(&(*root)->left);
+        if ((*root)->left != NULL){
+            (*root)->data += (*root)->left->data;
+        }
+        
+        minAggregate(&(*root)->right);
+        if ((*root)->right != NULL){
+            (*root)->data += (*root)->right->data;
+        }        
+    }
+}
 
 int main(){
     Node** root = malloc(sizeof(Node));
@@ -242,7 +254,23 @@ int main(){
     postorderTreewalk(root);
     printf("\nInorder: ");
     inorderTreewalk(root);
-    
+
+    printf("\n-----------------------------\n");
+    Node** test = malloc(sizeof(Node));
+    *test = NULL;
+    insert(test, 10);
+    insert(test, 3);
+    insert(test, 20);
+    insert(test, 1);
+    insert(test, 7);
+    insert(test, 15);
+    insert(test, 21);
+    insert(test, 12);
+    insert(test, 17);
+    inorderTreewalk(test);
+    minAggregate(test);
+    inorderTreewalk(test);
+    printf("\n-----------------------------\n");
 
     
     return 1;   

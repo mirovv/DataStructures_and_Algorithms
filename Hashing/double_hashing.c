@@ -4,7 +4,7 @@
 #define OCC 0
 #define EMP -1
 #define DEL -2
-#define m 12
+#define m 9
 
 typedef struct Element{
     int value;
@@ -21,7 +21,7 @@ void init(){
 
 int hash(int key, int i){
     int h1 = key % m;
-    int h2 = i * (key % 7);
+    int h2 = i * (1 + (key % 7));
     return (h1 + h2) % m;
 }
 
@@ -78,18 +78,14 @@ void printHashTable() {
 int main(){
 
     init();
-    insert(5);
-    insert(9);
-    insert(18);
-    insert(17);
-    insert(1);
-    insert(8);
-    insert(7);
-    insert(92);
-    insert(122);
-    insert(33);
-    insert(44);
-    insert(12);
+    insert(31);
+    insert(45);
+    insert(15);
+    insert(99);
+    insert(9084);
+    insert(45);
+    insert(6);
+    insert(28);
     printHashTable();
 
 }

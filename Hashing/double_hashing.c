@@ -29,17 +29,17 @@ void insert(int key){
     int i = 0;
     int hK = hash(key, i);
 
-    while(HT[hK].status == OCC && i < m){
+    while(HT[hK].status == OCC){
         printf("COLLISION\n");
         i++;
         hK = hash(key, i);
     }
-    if (i == m){
-        printf("HT is full\n");
+    if(HT[hK].status != OCC){
+        HT[hK].value = key;
+        HT[hK].status = OCC;
         return;
     }
-    HT[hK].value = key;
-    HT[hK].status = OCC;
+
 }
 
 void delete(int key){
@@ -78,17 +78,18 @@ void printHashTable() {
 int main(){
 
     init();
-    insert(5);    printHashTable();
-    insert(9);    printHashTable();
-    insert(18);    printHashTable();
-    insert(17);    printHashTable();
-    insert(1);    printHashTable();
-    insert(8);    printHashTable();
-    insert(7);    printHashTable();
-    insert(92);    printHashTable();
-    insert(122);    printHashTable();
-    insert(33);    printHashTable();
-    insert(44);    printHashTable();
-    insert(12);    printHashTable();
+    insert(5);
+    insert(9);
+    insert(18);
+    insert(17);
+    insert(1);
+    insert(8);
+    insert(7);
+    insert(92);
+    insert(122);
+    insert(33);
+    insert(44);
+    insert(12);
+    printHashTable();
 
 }

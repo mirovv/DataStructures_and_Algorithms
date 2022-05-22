@@ -72,10 +72,6 @@ void printHashTable() {
     printf("\n------------- End -------------\n\n");
 }
 
-
-
-
-
 int main(){
 
     init();

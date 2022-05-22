@@ -56,6 +56,21 @@ void delete(int key){
     }
 }
 
+int search(int key){
+    int i = 0;
+    int hKey = hash(key, i);
+    while (HT[hKey].value != key && HT[hKey].status == OCC && i < m){
+        i++;
+        hKey = hash(key, i);
+    }
+    if (HT[hKey].value == key){
+        printf("You searched for %d and it was found at index %d in the Hashtable\n", key, hKey);
+        return hKey;
+    }
+    printf("The Value %d that you're looking for is not in HT\n", key);
+    return -1;
+}
+
 void printHashTable() {
     printf("\n------------- Start -------------\n");
     int i;
@@ -94,6 +109,7 @@ int main(){
     printHashTable();
     insert(123);
     printHashTable();
+    search(33);
     insert(321);
     printHashTable();
 

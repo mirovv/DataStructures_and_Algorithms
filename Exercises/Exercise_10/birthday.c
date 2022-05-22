@@ -19,13 +19,9 @@ struct Node* insertNode(struct Node* head, int data){
         return head;
     }else{
         struct Node* newNode = malloc(sizeof(struct Node));
-        struct Node* current = head;
         newNode->data = data;
-        newNode->next = NULL;
-        while (current->next != NULL){
-            current = current->next;
-        }
-        current->next = newNode;
+        newNode->next = head;
+        head = newNode;
         return head;
     }
 }

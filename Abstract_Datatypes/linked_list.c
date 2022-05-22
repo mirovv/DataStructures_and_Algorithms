@@ -110,28 +110,68 @@ Node* delete_First_Occurence(Node* head, int value){
     return head;
 }
 
+Node* merge(Node* A, Node* B){
+    // merge two linked lists by taking the nodes alternatively from the two lists starting with A.
+    // return the head of the merged list.
+    // if either A or B is empty, return the other list.
+    Node* head = NULL;
+    if(A == NULL){
+        return B;
+    }else if(B == NULL){
+        return A;
+    }else{
+        head = A;
+        while(A->next != NULL && B->next != NULL){
+            A = A->next;
+            B = B->next;
+        }
+        A->next = B;
+    }
+    return head;
+
+}
+
 
 int main(){
-    Node* myLL = NULL;
-    printLL(myLL);
-    init(myLL);
-    myLL = insert_End(myLL, 7);
-    printLL(myLL);
-    myLL = insert_End(myLL, 9);
-    printLL(myLL);
-    myLL = insert_Beginning(myLL, 6);
-    printLL(myLL);
-    myLL = insert_End(myLL, 8);
-    printLL(myLL);
-    myLL = insert_Beginning(myLL, 3);
-    myLL = insert_End(myLL, 7);
-    myLL = insert_End(myLL, 8);
-    printLL(myLL);
-    myLL = delete_First_Occurence(myLL, 8);
-    myLL = delete_First_Occurence(myLL, 8);
-    myLL = delete_First_Occurence(myLL, 3);
-    myLL = delete_First(myLL);
-    printLL(myLL);
+    // Node* myLL = NULL;
+    // printLL(myLL);
+    // init(myLL);
+    // myLL = insert_End(myLL, 7);
+    // printLL(myLL);
+    // myLL = insert_End(myLL, 9);
+    // printLL(myLL);
+    // myLL = insert_Beginning(myLL, 6);
+    // printLL(myLL);
+    // myLL = insert_End(myLL, 8);
+    // printLL(myLL);
+    // myLL = insert_Beginning(myLL, 3);
+    // myLL = insert_End(myLL, 7);
+    // myLL = insert_End(myLL, 8);
+    // printLL(myLL);
+    // myLL = delete_First_Occurence(myLL, 8);
+    // myLL = delete_First_Occurence(myLL, 8);
+    // myLL = delete_First_Occurence(myLL, 3);
+    // myLL = delete_First(myLL);
+    // printLL(myLL);
+
+    Node* A = NULL;
+    init(A);
+    A = insert_End(A, 1);
+    A = insert_End(A, 5);
+    A = insert_End(A, 10);
+    printLL(A);
+
+    Node* B = NULL;
+    init(B);
+    B = insert_End(B, 3);
+    B = insert_End(B, 4);
+    B = insert_End(B, 7);
+    B = insert_End(B, 8);
+    B = insert_End(B, 12);
+    printLL(B);
+
+    Node* C = merge(A, B);
+    printLL(C);
 
 
 

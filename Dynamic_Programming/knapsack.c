@@ -13,7 +13,6 @@ int main(){
 
     int capacity = 8; // total allowed weight of bag
     int n = 4; // Number of items (we use it for indexing)
-
     int M[4][9]; // table
 
     for(int i = 0; i <= n; i++){
@@ -31,7 +30,6 @@ int main(){
         }
     }
 
-    
     printf("\nKnapsack Matrix:\n\n");
     for(int i = 0; i <= n; i++){
         if(i != 0){
@@ -44,6 +42,25 @@ int main(){
         }
         printf("\n");
     }
-
-    
+    // int i = n;
+    // int j = capacity;
+    // int Bag[n];
+    // printf("\nObjects in Bag:\n\n");
+    // while(i > 0 && j > 0){
+    //     printf("i: %d, j: %d\n", i,j);
+    //     if(M[i][j] != M[i-1][j]){
+    //         Bag[i] = 0;
+    //         i--;
+    //         printf("%d", 0);
+    //     }else{
+    //         Bag[i] = 1;
+    //         printf("%d", 1);
+    //         i--;
+    //         j -= Weight[i];
+    //     }
+    // }
+    // printf("\n");
+    // for(int i = 0; i <= n; i++){
+    //     printf("Object %d: %d\n", i, Bag[i]);
+    // }
 }

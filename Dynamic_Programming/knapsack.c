@@ -30,6 +30,8 @@ int main(){
             }
         }
     }
+
+    
     printf("\nKnapsack Matrix:\n\n");
     for(int i = 0; i <= n; i++){
         if(i != 0){

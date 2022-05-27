@@ -13,6 +13,19 @@ void insertionSort(int arr[], int n){
     }
 }
 
+void recursiveInsertionSort(int A[], int n){
+    if(n > 1){
+        recursiveInsertionSort(A, n-1);
+        int j = n - 1;
+        int t = A[n];
+        while (j > -1 && A[j] < t){
+            A[j+1] = A[j];
+            j--;
+        }
+        A[j+1] = t;
+    }
+}
+
 void bubbleSort(int arr[], int n){
 
     for (int i = 0; i < n-1; i++){
@@ -99,7 +112,7 @@ void heapify(int A[], int i, int n){
 void buildHeap(int A[], int n){
     int i;
     for (i = n / 2; i >= 0; i--){
-        max_heapify(A, i, n);
+        heapify(A, i, n);
     }
 }
 void heapsort(int A[], int n){
@@ -111,7 +124,7 @@ void heapsort(int A[], int n){
         A[i] = A[0];
         A[0] = temp;
         s--;
-        max_heapify(A, 0, s);
+        heapify(A, 0, s);
     }
 }
 
@@ -131,7 +144,7 @@ int main(){
     
     int n = sizeof(A) / sizeof(int);
 
-    mergeSort(A, 0, n);
+    recursiveInsertionSort(A, n-1);
     printArray(A,n);
 
 
